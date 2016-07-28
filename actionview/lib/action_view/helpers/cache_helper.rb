@@ -233,9 +233,8 @@ module ActionView
       end
 
       # TODO: Create an object that has caching read/write on it
-      def fragment_for(name = {}, options = nil, &block) #:nodoc:
-        force = options.is_a?(Hash) && options[:force]
-        !force && read_fragment_for(name, options) || write_fragment_for(name, options, &block)
+      def fragment_for(name = {}, force: false, **options, &block) #:nodoc:
+        (!force && read_fragment_for(name, options)) || write_fragment_for(name, options, &block)
       end
 
       def read_fragment_for(name, options) #:nodoc:
